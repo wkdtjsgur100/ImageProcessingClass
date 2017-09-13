@@ -10,6 +10,7 @@
 #endif
 
 #include "ImageProcessingDoc.h"
+#include "DownSampleDlg.h"
 
 #include <propkey.h>
 
@@ -175,4 +176,27 @@ BOOL CImageProcessingDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	File.Close();
 
 	return TRUE;
+}
+
+
+void CImageProcessingDoc::OnDownSampling()
+{
+	int i, j;
+	CDownSampleDlg dlg;
+
+	if (dlg.DoModal() == IDOK)
+	{
+		m_Re_height = m_height / dlg.m_DownSampleRate;
+		m_Re_width = m_width / dlg.m_DownSampleRate;
+
+		m_Re_size = m_Re_height * m_Re_width;
+
+		m_OutputImage = new unsigned char[m_Re_size];
+
+		for (i = 0;i < m_Re_height; i++) {
+			for (j = 0;j < m_Re_width; j++) {
+				m_OutputImage[i*m_Re_width + j] = m_InputImage[(i*dlg.m_DownSampleRate*m_width) + dlg.m_DownSampleRate*j];
+			}
+		}
+	}
 }

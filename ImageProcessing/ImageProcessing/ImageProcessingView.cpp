@@ -26,6 +26,7 @@ BEGIN_MESSAGE_MAP(CImageProcessingView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_COMMAND(ID_DOWN_SAMPLING, &CImageProcessingView::OnDownSampling)
 END_MESSAGE_MAP()
 
 // CImageProcessingView 생성/소멸
@@ -66,6 +67,13 @@ void CImageProcessingView::OnDraw(CDC* pDC)
 		}
 	}
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
+	for (int i = 0;i < pDoc->m_Re_height; i++) {
+		for (int j = 0;j < pDoc->m_Re_width;j++) {
+			R = pDoc->m_OutputImage[i*pDoc->m_Re_width + j];
+			G = B = R;
+			pDC->SetPixel(j + pDoc->m_width + 10, i + 5, RGB(R, G, B));
+		}
+	}
 }
 
 
@@ -110,3 +118,15 @@ CImageProcessingDoc* CImageProcessingView::GetDocument() const // 디버그되지 않�
 
 
 // CImageProcessingView 메시지 처리기
+
+
+void CImageProcessingView::OnDownSampling()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CImageProcessingDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+	pDoc->OnDownSampling();
+
+	Invalidate(TRUE);
+}

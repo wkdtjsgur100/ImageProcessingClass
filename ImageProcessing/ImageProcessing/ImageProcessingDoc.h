@@ -48,7 +48,15 @@ protected:
 public:
 	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
 	unsigned char*m_InputImage;
+	unsigned char* m_OutputImage;
+	
+	int m_Re_width;
+	int m_Re_height;
+	int m_Re_size;
+
 	int m_width;
 	int m_height;
 	int m_size;
+	
+	void OnDownSampling();
 };
