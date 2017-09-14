@@ -59,4 +59,5 @@ public:
 	int m_size;
 	
 	void OnDownSampling();
+	void OnUpSampling();
 };

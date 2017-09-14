@@ -11,6 +11,7 @@
 
 #include "ImageProcessingDoc.h"
 #include "DownSampleDlg.h"
+#include "UpSampleDlg.h"
 
 #include <propkey.h>
 
@@ -196,6 +197,31 @@ void CImageProcessingDoc::OnDownSampling()
 		for (i = 0;i < m_Re_height; i++) {
 			for (j = 0;j < m_Re_width; j++) {
 				m_OutputImage[i*m_Re_width + j] = m_InputImage[(i*dlg.m_DownSampleRate*m_width) + dlg.m_DownSampleRate*j];
+			}
+		}
+	}
+}
+
+
+void CImageProcessingDoc::OnUpSampling()
+{
+	int i, j;
+
+	CUpSampleDlg dlg;
+
+	if (dlg.DoModal() == IDOK) {
+		m_Re_height = m_height* dlg.m_UpSampleRate;
+		m_Re_width = m_width * dlg.m_UpSampleRate;
+		m_Re_size = m_Re_height* m_Re_width;
+
+		m_OutputImage = new unsigned char[m_Re_size];
+
+		for (i = 0; i < m_Re_size; i++)
+			m_OutputImage[i] = 0;
+
+		for (i = 0;i < m_height;i++) {
+			for (j = 0;j < m_width;j++) {
+				m_OutputImage[i*dlg.m_UpSampleRate*m_Re_width + dlg.m_UpSampleRate*j] = m_InputImage[i*m_width + j];
 			}
 		}
 	}

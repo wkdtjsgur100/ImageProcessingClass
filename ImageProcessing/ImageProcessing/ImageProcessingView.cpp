@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CImageProcessingView, CView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_COMMAND(ID_DOWN_SAMPLING, &CImageProcessingView::OnDownSampling)
+	ON_COMMAND(ID_UP_SAMPLING, &CImageProcessingView::OnUpSampling)
 END_MESSAGE_MAP()
 
 // CImageProcessingView 생성/소멸
@@ -127,6 +128,18 @@ void CImageProcessingView::OnDownSampling()
 
 	ASSERT_VALID(pDoc);
 	pDoc->OnDownSampling();
+
+	Invalidate(TRUE);
+}
+
+
+void CImageProcessingView::OnUpSampling()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CImageProcessingDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+	pDoc->OnUpSampling();
 
 	Invalidate(TRUE);
 }
