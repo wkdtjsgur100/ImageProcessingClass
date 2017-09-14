@@ -12,6 +12,7 @@
 #include "ImageProcessingDoc.h"
 #include "DownSampleDlg.h"
 #include "UpSampleDlg.h"
+#include "QuantizationDlg.h"
 
 #include <propkey.h>
 
@@ -223,6 +224,28 @@ void CImageProcessingDoc::OnUpSampling()
 			for (j = 0;j < m_width;j++) {
 				m_OutputImage[i*dlg.m_UpSampleRate*m_Re_width + dlg.m_UpSampleRate*j] = m_InputImage[i*m_width + j];
 			}
+		}
+	}
+}
+
+
+void CImageProcessingDoc::OnQuantization()
+{
+	CQuantizationDlg dlg;
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+
+	m_Re_size = m_Re_height * m_Re_width;
+
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	if (dlg.DoModal() == IDOK)
+	{
+		int i, sb;
+		sb = 8 - dlg.m_QuantBit;
+
+		for (i = 0; i < m_size;i++) {
+			m_OutputImage[i] = m_InputImage[i] >> sb << sb;
 		}
 	}
 }
