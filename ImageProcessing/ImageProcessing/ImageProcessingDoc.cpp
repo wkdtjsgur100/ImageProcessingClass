@@ -14,6 +14,7 @@
 #include "UpSampleDlg.h"
 #include "QuantizationDlg.h"
 #include "ConstantDlg.h"
+#include "ConverterDlg.h"
 
 #include <propkey.h>
 
@@ -269,6 +270,46 @@ void CImageProcessingDoc::OnSumConstant()
 				m_OutputImage[i] = 255;
 			else
 				m_OutputImage[i] = (unsigned char)(m_InputImage[i] + dlg.m_Constant);
+		}
+	}
+}
+
+
+void CImageProcessingDoc::OnAvgDevConvert()
+{
+	CConverterDlg dlg;
+
+	int i;
+	
+	double input_avg; // 입력 영상의 평균
+	double input_deviation; //입력 영상의 표준편차
+
+	
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+	m_Re_size = m_Re_size = m_Re_height*m_Re_width;
+
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	if (dlg.DoModal() == IDOK) {
+		unsigned long long sigma = 0;
+
+		for (i = 0;i < m_size;i++)
+			sigma += m_InputImage[i];
+
+		input_avg = sigma / (double)m_size;
+
+		for (i = 0;i < m_size;i++)
+			sigma += (m_InputImage[i] - input_avg)*(m_InputImage[i] - input_avg);
+
+		input_deviation = sqrtl(sigma / (double)m_size);
+
+		for (i = 0;i < m_size;i++) {
+			int z = (dlg.m_Deviation / input_deviation)*(m_InputImage[i] - input_avg) + dlg.m_Avg;
+			if (z >= 255)
+				m_OutputImage[i] = 255;
+			else
+				m_OutputImage[i] = (unsigned char)z;
 		}
 	}
 }

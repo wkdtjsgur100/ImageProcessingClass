@@ -188,6 +188,7 @@
   <ItemGroup>
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="ConstantDlg.h" />
+    <ClInclude Include="ConverterDlg.h" />
     <ClInclude Include="DownSampleDlg.h" />
     <ClInclude Include="ImageProcessing.h" />
     <ClInclude Include="ImageProcessingDoc.h" />
@@ -202,6 +203,7 @@
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="ConstantDlg.cpp" />
+    <ClCompile Include="ConverterDlg.cpp" />
     <ClCompile Include="DownSampleDlg.cpp" />
     <ClCompile Include="ImageProcessing.cpp" />
     <ClCompile Include="ImageProcessingDoc.cpp" />

@@ -45,6 +45,7 @@ public:
 	afx_msg void OnUpSampling();
 	afx_msg void OnQantization();
 	afx_msg void OnSumConstant();
+	afx_msg void OnAvgDevConvert();
 };
 
 #ifndef _DEBUG  // ImageProcessingView.cpp의 디버그 버전

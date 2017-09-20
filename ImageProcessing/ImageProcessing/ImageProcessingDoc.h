@@ -62,4 +62,5 @@ public:
 	void OnUpSampling();
 	void OnQuantization();
 	void OnSumConstant();
+	void OnAvgDevConvert();
 };
