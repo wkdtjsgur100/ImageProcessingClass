@@ -13,6 +13,7 @@
 #include "DownSampleDlg.h"
 #include "UpSampleDlg.h"
 #include "QuantizationDlg.h"
+#include "ConstantDlg.h"
 
 #include <propkey.h>
 
@@ -246,6 +247,28 @@ void CImageProcessingDoc::OnQuantization()
 
 		for (i = 0; i < m_size;i++) {
 			m_OutputImage[i] = m_InputImage[i] >> sb << sb;
+		}
+	}
+}
+
+
+void CImageProcessingDoc::OnSumConstant()
+{
+	CConstantDlg dlg;
+
+	int i;
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+	m_Re_size = m_Re_size = m_Re_height*m_Re_width;
+
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	if (dlg.DoModal() == IDOK) {
+		for (i = 0;i < m_size;i++) {
+			if (m_InputImage[i] + dlg.m_Constant >= 255)
+				m_OutputImage[i] = 255;
+			else
+				m_OutputImage[i] = (unsigned char)(m_InputImage[i] + dlg.m_Constant);
 		}
 	}
 }

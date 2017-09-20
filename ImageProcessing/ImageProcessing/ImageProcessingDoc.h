@@ -61,4 +61,5 @@ public:
 	void OnDownSampling();
 	void OnUpSampling();
 	void OnQuantization();
+	void OnSumConstant();
 };
