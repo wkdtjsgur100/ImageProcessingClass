@@ -186,6 +186,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AndOperateDlg.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="ConstantDlg.h" />
     <ClInclude Include="ConverterDlg.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="UpSampleDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AndOperateDlg.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="ConstantDlg.cpp" />
     <ClCompile Include="ConverterDlg.cpp" />

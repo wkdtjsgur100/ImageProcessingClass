@@ -180,6 +180,7 @@ BEGIN
         MENUITEM "UpSample",                    ID_UP_SAMPLING
         MENUITEM "양자화",                         ID_QANTIZATION
         MENUITEM "화소값 덧셈",                      ID_SUM_CONSTANT
+        MENUITEM "AND 연산",                      ID_AND_OPERATE
     END
     POPUP "과제"
     BEGIN
@@ -285,6 +286,17 @@ BEGIN
     EDITTEXT        IDC_EDIT2,120,71,93,14,ES_AUTOHSCROLL
 END
 
+IDD_DIALOG6 DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "And Operate"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "확인",IDOK,198,156,50,14
+    PUSHBUTTON      "취소",IDCANCEL,252,156,50,14
+    LTEXT           "Value",IDC_STATIC,103,67,18,8
+    EDITTEXT        IDC_EDIT1,157,65,40,14,ES_AUTOHSCROLL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -380,6 +392,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 170
     END
+
+    IDD_DIALOG6, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -410,6 +430,11 @@ BEGIN
 END
 
 IDD_DIALOG5 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG6 AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

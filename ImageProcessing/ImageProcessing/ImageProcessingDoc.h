@@ -63,4 +63,5 @@ public:
 	void OnQuantization();
 	void OnSumConstant();
 	void OnAvgDevConvert();
+	void OnAndOperate();
 };

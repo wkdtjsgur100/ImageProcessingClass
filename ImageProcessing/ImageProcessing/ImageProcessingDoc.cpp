@@ -15,6 +15,7 @@
 #include "QuantizationDlg.h"
 #include "ConstantDlg.h"
 #include "ConverterDlg.h"
+#include "AndOperateDlg.h"
 
 #include <propkey.h>
 
@@ -246,7 +247,7 @@ void CImageProcessingDoc::OnQuantization()
 		int i, sb;
 		sb = 8 - dlg.m_QuantBit;
 
-		for (i = 0; i < m_size;i++) {
+		for (i = 0; i < m_size; i++) {
 			m_OutputImage[i] = m_InputImage[i] >> sb << sb;
 		}
 	}
@@ -265,7 +266,7 @@ void CImageProcessingDoc::OnSumConstant()
 	m_OutputImage = new unsigned char[m_Re_size];
 
 	if (dlg.DoModal() == IDOK) {
-		for (i = 0;i < m_size;i++) {
+		for (i = 0; i < m_size; i++) {
 			if (m_InputImage[i] + dlg.m_Constant >= 255)
 				m_OutputImage[i] = 255;
 			else
@@ -280,11 +281,11 @@ void CImageProcessingDoc::OnAvgDevConvert()
 	CConverterDlg dlg;
 
 	int i;
-	
+
 	double input_avg; // 입력 영상의 평균
 	double input_deviation; //입력 영상의 표준편차
 
-	
+
 	m_Re_height = m_height;
 	m_Re_width = m_width;
 	m_Re_size = m_Re_size = m_Re_height*m_Re_width;
@@ -294,22 +295,49 @@ void CImageProcessingDoc::OnAvgDevConvert()
 	if (dlg.DoModal() == IDOK) {
 		unsigned long long sigma = 0;
 
-		for (i = 0;i < m_size;i++)
+		for (i = 0; i < m_size; i++)
 			sigma += m_InputImage[i];
 
 		input_avg = sigma / (double)m_size;
 
-		for (i = 0;i < m_size;i++)
+		for (i = 0; i < m_size; i++)
 			sigma += (m_InputImage[i] - input_avg)*(m_InputImage[i] - input_avg);
 
 		input_deviation = sqrtl(sigma / (double)m_size);
 
-		for (i = 0;i < m_size;i++) {
+		for (i = 0; i < m_size; i++) {
 			int z = (dlg.m_Deviation / input_deviation)*(m_InputImage[i] - input_avg) + dlg.m_Avg;
 			if (z >= 255)
 				m_OutputImage[i] = 255;
 			else
 				m_OutputImage[i] = (unsigned char)z;
+		}
+	}
+}
+
+
+void CImageProcessingDoc::OnAndOperate()
+{
+	CAndOperateDlg dlg;
+	int i;
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+
+	m_Re_size = m_Re_height * m_Re_width;
+
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	if (dlg.DoModal() == IDOK) {
+		for (i = 0; i < m_size; i++) {
+			if ((m_InputImage[i] & (unsigned char)dlg.m_AndValue) >= 255){
+				m_OutputImage[i] = 255;
+			}
+			else if ((m_InputImage[i] & (unsigned char)dlg.m_AndValue) < 0) {
+				m_OutputImage[i] = 0;
+			}
+			else {
+				m_OutputImage[i] = (m_InputImage[i] & (unsigned char)dlg.m_AndValue);
+			}
 		}
 	}
 }
