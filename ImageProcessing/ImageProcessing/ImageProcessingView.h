@@ -48,6 +48,7 @@ public:
 	afx_msg void OnAvgDevConvert();
 	afx_msg void OnAndOperate();
 	afx_msg void OnNegaTransform();
+	afx_msg void OnStressTransform();
 };
 
 #ifndef _DEBUG  // ImageProcessingView.cpp의 디버그 버전

@@ -65,4 +65,5 @@ public:
 	void OnAvgDevConvert();
 	void OnAndOperate();
 	void OnNegaTransform();
+	void OnStressTransform();
 };

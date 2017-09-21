@@ -182,6 +182,7 @@ BEGIN
         MENUITEM "화소값 덧셈",                      ID_SUM_CONSTANT
         MENUITEM "AND 연산",                      ID_AND_OPERATE
         MENUITEM "영상 반전 변환",                    ID_NEGA_TRANSFORM
+        MENUITEM "범위 강조 변환",                    ID_STRESS_TRANSFORM
     END
     POPUP "과제"
     BEGIN
@@ -298,6 +299,18 @@ BEGIN
     EDITTEXT        IDC_EDIT1,157,65,40,14,ES_AUTOHSCROLL
 END
 
+IDD_DIALOG7 DIALOGEX 0, 0, 315, 90
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Range of Stress"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "확인",IDOK,198,69,50,14
+    PUSHBUTTON      "취소",IDCANCEL,258,69,50,14
+    LTEXT           "Range of Stress",IDC_STATIC,131,25,52,8
+    EDITTEXT        IDC_EDIT1,103,44,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,173,44,40,14,ES_AUTOHSCROLL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -401,6 +414,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 170
     END
+
+    IDD_DIALOG7, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 308
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -436,6 +457,11 @@ BEGIN
 END
 
 IDD_DIALOG6 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG7 AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

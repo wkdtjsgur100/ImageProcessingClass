@@ -16,6 +16,7 @@
 #include "ConstantDlg.h"
 #include "ConverterDlg.h"
 #include "AndOperateDlg.h"
+#include "StressTransformDlg.h"
 
 #include <propkey.h>
 
@@ -355,4 +356,26 @@ void CImageProcessingDoc::OnNegaTransform()
 	
 	for (i = 0; i < m_size; i++)
 		m_OutputImage[i] = 255 - m_InputImage[i];
+}
+
+
+void CImageProcessingDoc::OnStressTransform()
+{
+	CStressTransformDlg dlg;
+	int i;
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+
+	m_Re_size = m_Re_height * m_Re_width;
+
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	if (dlg.DoModal() == IDOK) {
+		for (i = 0; i < m_size; i++) {
+			if (m_InputImage[i] >= dlg.m_stressMin && m_InputImage[i] <= dlg.m_stressMax)
+				m_OutputImage[i] = 255;
+			else
+				m_OutputImage[i] = m_InputImage[i];
+		}
+	}
 }

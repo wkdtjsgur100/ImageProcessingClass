@@ -13,6 +13,7 @@
 #define IDD_DIALOG4                     316
 #define IDD_DIALOG5                     318
 #define IDD_DIALOG6                     320
+#define IDD_DIALOG7                     324
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1003
 #define ID_32771                        32771
@@ -29,13 +30,15 @@
 #define ID_AND_OPERATE                  32782
 #define ID_32783                        32783
 #define ID_NEGA_TRANSFORM               32784
+#define ID_32785                        32785
+#define ID_STRESS_TRANSFORM             32786
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        322
-#define _APS_NEXT_COMMAND_VALUE         32785
+#define _APS_NEXT_RESOURCE_VALUE        326
+#define _APS_NEXT_COMMAND_VALUE         32787
 #define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
