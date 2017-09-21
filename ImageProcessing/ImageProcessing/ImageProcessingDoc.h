@@ -64,4 +64,5 @@ public:
 	void OnSumConstant();
 	void OnAvgDevConvert();
 	void OnAndOperate();
+	void OnNegaTransform();
 };

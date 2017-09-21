@@ -341,3 +341,18 @@ void CImageProcessingDoc::OnAndOperate()
 		}
 	}
 }
+
+
+void CImageProcessingDoc::OnNegaTransform()
+{
+	int i;
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+
+	m_Re_size = m_Re_height * m_Re_width;
+
+	m_OutputImage = new unsigned char[m_Re_size];
+	
+	for (i = 0; i < m_size; i++)
+		m_OutputImage[i] = 255 - m_InputImage[i];
+}
