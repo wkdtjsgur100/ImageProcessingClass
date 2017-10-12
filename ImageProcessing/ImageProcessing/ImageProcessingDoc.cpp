@@ -379,3 +379,133 @@ void CImageProcessingDoc::OnStressTransform()
 		}
 	}
 }
+
+
+void CImageProcessingDoc::OnMasking()
+{
+	int i, j;
+	double Mask[3][3] = {
+		{0., 1., 0.},
+		{1., -4., 1.},
+		{0., 1., 0.}
+	};
+
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+	m_Re_size = m_Re_height* m_Re_width;
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	//m_tempImage = OnMaskProcess(m_InputImage, Mask);
+	m_tempImage = OnMedianProcess(m_InputImage,m_Re_width,m_Re_height);
+
+	for(i=0;i<m_Re_height; i++)
+		for (j = 0; j < m_Re_width; j++)
+		{
+			if (m_tempImage[i][j] > 255.)
+				m_tempImage[i][j] = 255.;
+			if (m_tempImage[i][j] < 0.)
+				m_tempImage[i][j] = 0.;
+		}
+
+	m_tempImage = OnScale(m_tempImage, m_Re_height, m_Re_width);
+
+	for (i = 0; i < m_Re_height; i++)
+		for (j = 0; j < m_Re_width; j++)
+			m_OutputImage[i*m_Re_width + j] = (unsigned char)m_tempImage[i][j];
+}
+
+double** CImageProcessingDoc::OnMaskProcess(unsigned char* Target, double Mask[3][3])
+{
+	int i, j, n, m;
+	double **tempInputImage, **tempOutputImage, S = 0.0;
+
+	tempInputImage = Image2DMem(m_height + 2, m_width + 2);
+	tempOutputImage = Image2DMem(m_height, m_width);
+
+	for (i = 0; i < m_height; i++)
+		for (j = 0; j < m_width; j++)
+			tempInputImage[i + 1][j + 1] = (double)Target[i*m_width + j];
+
+	for(i=0;i<m_height;i++)
+		for (j = 0; j < m_width; j++)
+		{
+			for (n = 0; n < 3; n++)
+				for (m = 0; m < 3; m++)
+					S += Mask[n][m] * tempInputImage[i + n][j + m];
+			
+			tempOutputImage[i][j] = S;
+			S = 0.0;
+		}
+
+	return tempOutputImage;
+}
+
+
+double** CImageProcessingDoc::OnScale(double** Target, int height, int width)
+{
+	int i, j;
+	double min, max;
+	min = max = Target[0][0];
+
+	for (i = 0; i < height; i++)
+		for (j = 0; j < width; j++)
+		{
+			if (Target[i][j] < min)
+				min = Target[i][j];
+			if (Target[i][j] > max)
+				max = Target[i][j];
+		}
+
+	max = max - min;
+
+	for (i = 0; i < height; i++)
+		for (j = 0; j < width; j++)
+			Target[i][j] = (Target[i][j] - min)*(255 / max);
+
+	return Target;
+}
+
+
+double** CImageProcessingDoc::Image2DMem(int height, int width)
+{
+	double** temp;
+	int i, j;
+	temp = new double*[height];
+	
+	for (i = 0; i < height; i++)
+		temp[i] = new double[width];
+
+	for (i = 0; i < height; i++)
+		for (j = 0; j < width; j++)
+			temp[i][j] = 0.0;
+
+	return temp;
+}
+int CImageProcessingDoc::Compare(void *first, void *second)
+{
+	if (*(int*)first > *(int*)second)
+		return 1;
+	else if (*(int*)first < *(int*)second)
+		return -1;
+	else
+		return 0;
+}
+double** CImageProcessingDoc::OnMedianProcess(unsigned char* Target, int width, int height)
+{
+	int i, j, n, m;
+	double **tempOutputImage;
+
+	tempOutputImage = Image2DMem(height, width);
+	for (i = 0; i<height; i++)
+		for (j = 0; j < width; j++)
+		{
+			double arr[9] = { 0., };
+			for (n = 0; n < 3; n++)
+				for (m = 0; m < 3; m++)
+					arr[3*n+m] = Target[(i + n)*width + (j + m)];
+
+			//qsort((double*)arr, sizeof(arr)/sizeof(double), sizeof(double), Compare);
+			tempOutputImage[i][j] = arr[4];
+		}
+	return nullptr;
+}

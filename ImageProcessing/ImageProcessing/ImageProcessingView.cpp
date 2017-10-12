@@ -34,6 +34,7 @@ BEGIN_MESSAGE_MAP(CImageProcessingView, CView)
 	ON_COMMAND(ID_AND_OPERATE, &CImageProcessingView::OnAndOperate)
 	ON_COMMAND(ID_NEGA_TRANSFORM, &CImageProcessingView::OnNegaTransform)
 	ON_COMMAND(ID_STRESS_TRANSFORM, &CImageProcessingView::OnStressTransform)
+	ON_COMMAND(ID_MASKING, &CImageProcessingView::OnMasking)
 END_MESSAGE_MAP()
 
 // CImageProcessingView 생성/소멸
@@ -219,6 +220,18 @@ void CImageProcessingView::OnStressTransform()
 
 	ASSERT_VALID(pDoc);
 	pDoc->OnStressTransform();
+
+	Invalidate(TRUE);
+}
+
+
+void CImageProcessingView::OnMasking()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CImageProcessingDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+	pDoc->OnMasking();
 
 	Invalidate(TRUE);
 }

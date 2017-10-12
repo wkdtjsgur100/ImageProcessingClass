@@ -49,6 +49,7 @@ public:
 	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
 	unsigned char*m_InputImage;
 	unsigned char* m_OutputImage;
+	double** m_tempImage;
 	
 	int m_Re_width;
 	int m_Re_height;
@@ -66,4 +67,10 @@ public:
 	void OnAndOperate();
 	void OnNegaTransform();
 	void OnStressTransform();
+	void OnMasking();
+	double** OnMaskProcess(unsigned char* Target, double Mask[3][3]);
+	double** OnScale(double** Target, int height, int width);
+	double** Image2DMem(int height, int width);
+	int Compare(void *first, void *second);
+	double** OnMedianProcess(unsigned char* Target, int width, int height);
 };
