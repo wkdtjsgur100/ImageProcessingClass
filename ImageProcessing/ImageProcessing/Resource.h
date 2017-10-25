@@ -34,13 +34,15 @@
 #define ID_STRESS_TRANSFORM             32786
 #define ID_32787                        32787
 #define ID_MASKING                      32788
+#define ID_32789                        32789
+#define ID_MEDIAN                       32790
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        326
-#define _APS_NEXT_COMMAND_VALUE         32789
+#define _APS_NEXT_COMMAND_VALUE         32791
 #define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

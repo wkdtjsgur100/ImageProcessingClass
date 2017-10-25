@@ -68,9 +68,11 @@ public:
 	void OnNegaTransform();
 	void OnStressTransform();
 	void OnMasking();
+
 	double** OnMaskProcess(unsigned char* Target, double Mask[3][3]);
 	double** OnScale(double** Target, int height, int width);
 	double** Image2DMem(int height, int width);
-	int Compare(void *first, void *second);
+	void bubbleSort(double* arr,int n);
 	double** OnMedianProcess(unsigned char* Target, int width, int height);
+	void OnMedian();
 };

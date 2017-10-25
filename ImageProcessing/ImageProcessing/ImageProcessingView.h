@@ -50,6 +50,7 @@ public:
 	afx_msg void OnNegaTransform();
 	afx_msg void OnStressTransform();
 	afx_msg void OnMasking();
+	afx_msg void OnMedian();
 };
 
 #ifndef _DEBUG  // ImageProcessingView.cpp의 디버그 버전

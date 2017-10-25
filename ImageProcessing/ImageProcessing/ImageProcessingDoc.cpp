@@ -481,14 +481,20 @@ double** CImageProcessingDoc::Image2DMem(int height, int width)
 
 	return temp;
 }
-int CImageProcessingDoc::Compare(void *first, void *second)
+void CImageProcessingDoc::bubbleSort(double* arr, int n)
 {
-	if (*(int*)first > *(int*)second)
-		return 1;
-	else if (*(int*)first < *(int*)second)
-		return -1;
-	else
-		return 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (arr[i] < arr[j])
+			{
+				int t = arr[i];
+				arr[i] = arr[j];
+				arr[j] = t;
+			}
+		}
+	}
 }
 double** CImageProcessingDoc::OnMedianProcess(unsigned char* Target, int width, int height)
 {
@@ -504,8 +510,14 @@ double** CImageProcessingDoc::OnMedianProcess(unsigned char* Target, int width, 
 				for (m = 0; m < 3; m++)
 					arr[3*n+m] = Target[(i + n)*width + (j + m)];
 
-			//qsort((double*)arr, sizeof(arr)/sizeof(double), sizeof(double), Compare);
+			bubbleSort(arr, 9);
 			tempOutputImage[i][j] = arr[4];
 		}
-	return nullptr;
+	return tempOutputImage;
+}
+
+
+void CImageProcessingDoc::OnMedian()
+{
+
 }

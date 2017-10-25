@@ -184,6 +184,7 @@ BEGIN
         MENUITEM "영상 반전 변환",                    ID_NEGA_TRANSFORM
         MENUITEM "범위 강조 변환",                    ID_STRESS_TRANSFORM
         MENUITEM "Masking",                     ID_MASKING
+        MENUITEM "Median",                      ID_MEDIAN
     END
     POPUP "과제"
     BEGIN
