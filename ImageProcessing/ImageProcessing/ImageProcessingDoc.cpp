@@ -221,14 +221,36 @@ void CImageProcessingDoc::OnUpSampling()
 
 		m_OutputImage = new unsigned char[m_Re_size];
 
-		for (i = 0; i < m_Re_size; i++)
-			m_OutputImage[i] = 0;
-
-		for (i = 0;i < m_height;i++) {
-			for (j = 0;j < m_width;j++) {
-				m_OutputImage[i*dlg.m_UpSampleRate*m_Re_width + dlg.m_UpSampleRate*j] = m_InputImage[i*m_width + j];
+		/* Nearest 보간*/
+		for (i = 0;i < m_Re_height;i++) {
+			for (j = 0;j < m_Re_width;j++) {
+				m_OutputImage[i*m_Re_width + j] = m_InputImage[(i/dlg.m_UpSampleRate)*m_width + (j/dlg.m_UpSampleRate)];
 			}
 		}
+
+		/*
+		양선형 보간
+		for (i = 0;i < m_Re_height;i++) {
+			for (j = 0;j < m_Re_width;j++) {
+				double r_H = (double)i / dlg.m_UpSampleRate;
+				double r_W = (double)j / dlg.m_UpSampleRate;
+
+				int i_H = (int)floor(r_H);
+				int i_W = (int)floor(r_W);
+
+				double s_H = r_H - i_H;
+				double s_W = r_W - i_W;
+
+				if (i_H < 0 || i_H >= (m_height - 1) || i_W < 0 || i_W >= (m_width - 1))
+				{
+					m_OutputImage[i*m_Re_width + j] = 255;
+				}
+				else
+				{
+				}
+			}
+		}
+		*/
 	}
 }
 
