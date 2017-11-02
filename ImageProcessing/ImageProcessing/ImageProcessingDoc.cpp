@@ -221,15 +221,17 @@ void CImageProcessingDoc::OnUpSampling()
 
 		m_OutputImage = new unsigned char[m_Re_size];
 
-		/* Nearest 보간*/
+		/* Nearest 보간
+		
 		for (i = 0;i < m_Re_height;i++) {
 			for (j = 0;j < m_Re_width;j++) {
 				m_OutputImage[i*m_Re_width + j] = m_InputImage[(i/dlg.m_UpSampleRate)*m_width + (j/dlg.m_UpSampleRate)];
 			}
-		}
+		}*/
 
 		/*
 		양선형 보간
+		*/
 		for (i = 0;i < m_Re_height;i++) {
 			for (j = 0;j < m_Re_width;j++) {
 				double r_H = (double)i / dlg.m_UpSampleRate;
@@ -247,10 +249,17 @@ void CImageProcessingDoc::OnUpSampling()
 				}
 				else
 				{
+					double C1 = (double)m_InputImage[i_H*m_width + i_W];
+					double C2 = (double)m_InputImage[i_H*m_width + i_W+1];
+					double C3 = (double)m_InputImage[(i_H+1)*m_width + i_W+1];
+					double C4 = (double)m_InputImage[(i_H+1)*m_width + i_W];
+
+					unsigned char newValue = (unsigned char)(C1*(1 - s_H)*(1 - s_W) + C2*s_W*(1 - s_H) + C3*s_W*s_H + C4*(1 - s_W)*s_H);
+
+					m_OutputImage[i*m_Re_width + j] = newValue;
 				}
 			}
 		}
-		*/
 	}
 }
 
