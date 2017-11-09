@@ -185,6 +185,7 @@ BEGIN
         MENUITEM "범위 강조 변환",                    ID_STRESS_TRANSFORM
         MENUITEM "Masking",                     ID_MASKING
         MENUITEM "Median",                      ID_MEDIAN
+        MENUITEM "영상 좌우 대칭",                    ID_MIRROR_HOR
     END
     POPUP "과제"
     BEGIN

@@ -552,3 +552,44 @@ void CImageProcessingDoc::OnMedian()
 {
 
 }
+
+
+void CImageProcessingDoc::OnMirrorHor()
+{
+	int i, j;
+	double **tempArray;
+
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+	m_Re_size = m_Re_height* m_Re_width;
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	m_tempImage = Image2DMem(m_height, m_width);
+	tempArray = Image2DMem(m_Re_height, m_Re_width);
+
+	for (i = 0;i < m_height; i++) {
+		for (j = 0;j < m_width; j++) {
+			m_tempImage[i][j] = (double)m_InputImage[i*m_width + j];
+		}
+	}
+
+	for (i = 0;i < m_Re_height; i++) {
+		for (j = 0;j < m_Re_width;j++) {
+			int x = -j + m_Re_width - 1;
+			int y = i;
+
+			if (x<0 || x > m_width || y<0 || y>m_height)
+				tempArray[i][j] = 0;
+			else
+				tempArray[i][j] = m_tempImage[y][x];
+		}
+	}
+
+	for (i = 0;i < m_Re_height; i++) {
+		for (j = 0;j < m_Re_width;j++) {
+			m_OutputImage[i*m_Re_width + j] = (unsigned char)tempArray[i][j];
+		}
+	}
+	delete[] m_tempImage;
+	delete[] tempArray;
+}

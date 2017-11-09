@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CImageProcessingView, CView)
 	ON_COMMAND(ID_STRESS_TRANSFORM, &CImageProcessingView::OnStressTransform)
 	ON_COMMAND(ID_MASKING, &CImageProcessingView::OnMasking)
 	ON_COMMAND(ID_MEDIAN, &CImageProcessingView::OnMedian)
+	ON_COMMAND(ID_MIRROR_HOR, &CImageProcessingView::OnMirrorHor)
 END_MESSAGE_MAP()
 
 // CImageProcessingView 생성/소멸
@@ -244,6 +245,19 @@ void CImageProcessingView::OnMedian()
 	CImageProcessingDoc* pDoc = GetDocument();
 
 	ASSERT_VALID(pDoc);
+
+	Invalidate(TRUE);
+}
+
+
+void CImageProcessingView::OnMirrorHor()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CImageProcessingDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+
+	pDoc->OnMirrorHor();
 
 	Invalidate(TRUE);
 }
