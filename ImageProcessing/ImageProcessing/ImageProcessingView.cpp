@@ -37,6 +37,7 @@ BEGIN_MESSAGE_MAP(CImageProcessingView, CView)
 	ON_COMMAND(ID_MASKING, &CImageProcessingView::OnMasking)
 	ON_COMMAND(ID_MEDIAN, &CImageProcessingView::OnMedian)
 	ON_COMMAND(ID_MIRROR_HOR, &CImageProcessingView::OnMirrorHor)
+	ON_COMMAND(ID_ROTATION, &CImageProcessingView::OnRotation)
 END_MESSAGE_MAP()
 
 // CImageProcessingView 생성/소멸
@@ -258,6 +259,20 @@ void CImageProcessingView::OnMirrorHor()
 	ASSERT_VALID(pDoc);
 
 	pDoc->OnMirrorHor();
+
+	Invalidate(TRUE);
+}
+
+
+void CImageProcessingView::OnRotation()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CImageProcessingDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+
+	pDoc->OnMeanSub();
 
 	Invalidate(TRUE);
 }

@@ -52,6 +52,7 @@ public:
 	afx_msg void OnMasking();
 	afx_msg void OnMedian();
 	afx_msg void OnMirrorHor();
+	afx_msg void OnRotation();
 };
 
 #ifndef _DEBUG  // ImageProcessingView.cpp의 디버그 버전

@@ -38,13 +38,15 @@
 #define ID_MEDIAN                       32790
 #define ID_32791                        32791
 #define ID_MIRROR_HOR                   32792
+#define ID_32793                        32793
+#define ID_ROTATION                     32794
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        326
-#define _APS_NEXT_COMMAND_VALUE         32793
+#define _APS_NEXT_COMMAND_VALUE         32795
 #define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

@@ -186,6 +186,7 @@ BEGIN
         MENUITEM "Masking",                     ID_MASKING
         MENUITEM "Median",                      ID_MEDIAN
         MENUITEM "영상 좌우 대칭",                    ID_MIRROR_HOR
+        MENUITEM "영상 회전",                       ID_ROTATION
     END
     POPUP "과제"
     BEGIN

@@ -76,4 +76,5 @@ public:
 	double** OnMedianProcess(unsigned char* Target, int width, int height);
 	void OnMedian();
 	void OnMirrorHor();
+	void OnMeanSub();
 };
