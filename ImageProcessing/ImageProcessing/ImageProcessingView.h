@@ -53,6 +53,13 @@ public:
 	afx_msg void OnMedian();
 	afx_msg void OnMirrorHor();
 	afx_msg void OnRotation();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	bool m_bDrawMode;
+	bool m_LineDrawn;
+	CPoint m_ptStart;
+	CPoint m_ptEnd;
 };
 
 #ifndef _DEBUG  // ImageProcessingView.cpp의 디버그 버전

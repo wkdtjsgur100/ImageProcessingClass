@@ -38,11 +38,16 @@ BEGIN_MESSAGE_MAP(CImageProcessingView, CView)
 	ON_COMMAND(ID_MEDIAN, &CImageProcessingView::OnMedian)
 	ON_COMMAND(ID_MIRROR_HOR, &CImageProcessingView::OnMirrorHor)
 	ON_COMMAND(ID_ROTATION, &CImageProcessingView::OnRotation)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 // CImageProcessingView 생성/소멸
 
 CImageProcessingView::CImageProcessingView()
+	: m_bDrawMode(false)
+	, m_LineDrawn(false)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 
@@ -275,4 +280,57 @@ void CImageProcessingView::OnRotation()
 	pDoc->OnMeanSub();
 
 	Invalidate(TRUE);
+}
+
+
+void CImageProcessingView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	m_bDrawMode = TRUE;
+
+	m_LineDrawn = FALSE;
+	m_ptStart = m_ptEnd = point;
+
+	CView::OnLButtonDown(nFlags, point);
+
+}
+
+
+void CImageProcessingView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	// TODO: Add your message handler code here and/or call default
+
+	if (m_bDrawMode) {
+		CClientDC dc(this);
+
+		dc.SetROP2(R2_NOT);
+		dc.MoveTo(m_ptStart);
+		dc.LineTo(m_ptEnd);
+
+		m_ptEnd = point;
+
+		dc.SetROP2(R2_NOT);
+		dc.MoveTo(m_ptStart);
+		dc.LineTo(m_ptEnd);
+	}
+
+	CView::OnMouseMove(nFlags, point);
+}
+
+
+void CImageProcessingView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+	CClientDC dc(this);
+
+	dc.SetROP2(R2_COPYPEN);
+	dc.MoveTo(m_ptStart);
+	dc.LineTo(m_ptEnd);
+
+	m_bDrawMode = FALSE;
+	m_LineDrawn = TRUE;
+
+	CView::OnLButtonUp(nFlags, point);
 }
