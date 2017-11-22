@@ -77,4 +77,6 @@ public:
 	void OnMedian();
 	void OnMirrorHor();
 	void OnMeanSub();
+	void OnFindChief();
+	void OnRotateByPoint(CPoint d);
 };

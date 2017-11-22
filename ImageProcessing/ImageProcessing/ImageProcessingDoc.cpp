@@ -643,3 +643,109 @@ void CImageProcessingDoc::OnMeanSub()
 	delete[] m_tempImage;
 	delete[] tempArray;
 }
+
+
+void CImageProcessingDoc::OnFindChief()
+{
+	int i, j, CH, CW, newH, newW, degree = 45;
+	double Radian, PI, **tempArray, Value;
+
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+	m_Re_size = m_Re_height* m_Re_width;
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	PI = 3.14159265358979;
+
+	Radian = (double)degree*PI / 180.0;
+	CH = m_height / 2;
+	CW = m_width / 2;
+
+	m_tempImage = Image2DMem(m_height, m_width);
+	tempArray = Image2DMem(m_Re_height, m_Re_width);
+
+	for (i = 0;i < m_height; i++) {
+		for (j = 0;j < m_width; j++) {
+			m_tempImage[i][j] = (double)m_InputImage[i*m_width + j];
+		}
+	}
+	for (i = 0;i < m_height;i++) {
+		for (j = 0;j < m_width;j++) {
+			double d = sqrtl((CH - i)*(CH - i) + (CW - j)*(CW - j));
+			Radian = -(d * PI / 180.0);
+			newH = (int)((i - CH)*cos(Radian) - (j - CW)*sin(Radian) + CH);
+			newW = (int)((i - CH)*sin(Radian) + (j - CW)*sin(Radian) + CW);
+
+			if (newH < 0 || newH >= m_height)
+				Value = 0;
+			else if (newW < 0 || newW >= m_width)
+				Value = 0;
+			else
+				Value = m_tempImage[newH][newW];
+
+			tempArray[i][j] = Value;
+		}
+	}
+	for (i = 0;i < m_Re_height; i++) {
+		for (j = 0;j < m_Re_width;j++) {
+			m_OutputImage[i*m_Re_width + j] = (unsigned char)tempArray[i][j];
+		}
+	}
+	delete[] m_tempImage;
+	delete[] tempArray;
+}
+
+
+void CImageProcessingDoc::OnRotateByPoint(CPoint d)
+{
+	double D = sqrtl(d.x*d.x + d.y*d.y);
+	double cost = d.x / D;
+	double sint = d.y / D;
+
+	int i, j, CH, CW, newH, newW, degree = 45;
+	double Radian, PI, **tempArray, Value;
+
+	m_Re_height = m_height;
+	m_Re_width = m_width;
+	m_Re_size = m_Re_height* m_Re_width;
+	m_OutputImage = new unsigned char[m_Re_size];
+
+	PI = 3.14159265358979;
+
+	Radian = (double)degree*PI / 180.0;
+	CH = m_height / 2;
+	CW = m_width / 2;
+
+	m_tempImage = Image2DMem(m_height, m_width);
+	tempArray = Image2DMem(m_Re_height, m_Re_width);
+
+	for (i = 0;i < m_height; i++) {
+		for (j = 0;j < m_width; j++) {
+			m_tempImage[i][j] = (double)m_InputImage[i*m_width + j];
+		}
+	}
+	for (i = 0;i < m_height;i++) {
+		for (j = 0;j < m_width;j++) {
+			double d = sqrtl((CH - i)*(CH - i) + (CW - j)*(CW - j));
+
+			newH = (int)(sint*(j-CW)+cost*(i-CH)+CH);
+			newW = (int)(cost*(j-CW)-sint*(i-CH)+CW);
+
+			if (newH < 0 || newH >= m_height)
+				Value = 0;
+			else if (newW < 0 || newW >= m_width)
+				Value = 0;
+			else
+				Value = m_tempImage[newH][newW];
+
+			tempArray[i][j] = Value;
+		}
+	}
+	for (i = 0;i < m_Re_height; i++) {
+		for (j = 0;j < m_Re_width;j++) {
+			m_OutputImage[i*m_Re_width + j] = (unsigned char)tempArray[i][j];
+		}
+	}
+	delete[] m_tempImage;
+	delete[] tempArray;
+}

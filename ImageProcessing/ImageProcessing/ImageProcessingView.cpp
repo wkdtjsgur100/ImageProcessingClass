@@ -41,6 +41,7 @@ BEGIN_MESSAGE_MAP(CImageProcessingView, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_COMMAND(ID_FIND_CHIEF, &CImageProcessingView::OnFindChief)
 END_MESSAGE_MAP()
 
 // CImageProcessingView 생성/소멸
@@ -333,4 +334,18 @@ void CImageProcessingView::OnLButtonUp(UINT nFlags, CPoint point)
 	m_LineDrawn = TRUE;
 
 	CView::OnLButtonUp(nFlags, point);
+}
+
+
+void CImageProcessingView::OnFindChief()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+
+	CImageProcessingDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+
+	pDoc->OnRotateByPoint(m_ptEnd - m_ptStart);
+
+	Invalidate(TRUE);
 }

@@ -191,6 +191,7 @@ BEGIN
     POPUP "과제"
     BEGIN
         MENUITEM "평균, 표준편차 변환 프로그램",            ID_AVG_DEV_CONVERT
+        MENUITEM "범인 찾기 프로그램",                  ID_FIND_CHIEF
     END
 END
 

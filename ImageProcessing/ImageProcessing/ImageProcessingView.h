@@ -60,6 +60,7 @@ public:
 	bool m_LineDrawn;
 	CPoint m_ptStart;
 	CPoint m_ptEnd;
+	afx_msg void OnFindChief();
 };
 
 #ifndef _DEBUG  // ImageProcessingView.cpp의 디버그 버전
